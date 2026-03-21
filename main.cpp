@@ -30,10 +30,23 @@ VmaAllocator allocator{ VK_NULL_HANDLE };
 VkSurfaceKHR surface{ VK_NULL_HANDLE };
 VkSwapchainKHR swapchain{ VK_NULL_HANDLE };
 bool updateSwapchain{ false };
+VkImage depthImage;
+VmaAllocation depthImageAllocation;
+VkImageView depthImageView;
 
 // Containers
 glm::ivec2 windowSize{};
+std::vector<VkImage> swapchainImages;
+std::vector<VkImageView> swapchainImageViews;
 
+
+// Structures:
+struct Vertex
+{
+	glm::vec3 pos;
+	glm::vec3 normal;
+	glm::vec2 uv;
+};
 // Check Functions:
 static inline void chk(VkResult result)
 {
@@ -43,6 +56,7 @@ static inline void chk(VkResult result)
 		exit(result);
 	}
 }
+
 
 static inline void chkSwapchain(VkResult result)
 {
@@ -69,6 +83,11 @@ static inline void chk(bool result)
 
 int main(int argc, char* argv[])
 {
+	// Libraries check
+	chk(SDL_Init(SDL_INIT_VIDEO));
+	chk(SDL_Vulkan_LoadLibrary(NULL));
+	volkInitialize();
+
 	// Make Instance
 	VkApplicationInfo appInfo{
 	.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
@@ -193,6 +212,7 @@ int main(int argc, char* argv[])
 	// Make window
 	SDL_Window* window = SDL_CreateWindow("NewVulkan", 1280u, 720u,
 		SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
+	assert(window);
 	chk(SDL_Vulkan_CreateSurface(window, instance, nullptr, &surface));
 
 	// Get Surface Properties
@@ -224,4 +244,63 @@ int main(int argc, char* argv[])
 		.presentMode = VK_PRESENT_MODE_FIFO_KHR
 	};
 	chk(vkCreateSwapchainKHR(device, &swapchainCI, nullptr, &swapchain));
+
+	// Get as many images from swapchain as we can:
+	uint32_t imageCount{ 0 };
+	chk(vkGetSwapchainImagesKHR(device, swapchain, &imageCount, nullptr));
+	swapchainImages.resize(imageCount);
+	chk(vkGetSwapchainImagesKHR(device, swapchain, &imageCount, swapchainImages.data()));
+	swapchainImageViews.resize(imageCount);
+
+	// Get depth attatchment format on device
+	std::vector<VkFormat> depthFormatList{ VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT };
+	VkFormat depthFormat{ VK_FORMAT_UNDEFINED };
+	for (VkFormat& format : depthFormatList)
+	{
+		VkFormatProperties2 formatProperties{ .sType = VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2 };
+		vkGetPhysicalDeviceFormatProperties2(devices[deviceIndex], format, &formatProperties);
+		if (formatProperties.formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT)
+		{
+			depthFormat = format;
+			break;
+		}
+	}
+
+	// Depth image struct:
+	VkImageCreateInfo depthImageCI{
+	.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO,
+	.imageType = VK_IMAGE_TYPE_2D,
+	.format = depthFormat,
+	.extent{.width = static_cast<uint32_t>(windowSize.x),
+	.height = static_cast<uint32_t>(windowSize.y), .depth = 1 },
+	.mipLevels = 1,
+	.arrayLayers = 1,
+	.samples = VK_SAMPLE_COUNT_1_BIT,
+	.tiling = VK_IMAGE_TILING_OPTIMAL,
+	.usage = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+	.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED,
+	};
+
+	VmaAllocationCreateInfo allocCI{
+	.flags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
+	.usage = VMA_MEMORY_USAGE_AUTO
+	};
+	chk(vmaCreateImage(allocator, &depthImageCI, &allocCI,
+		&depthImage, &depthImageAllocation, nullptr));
+
+	// Get Depth image view:
+	VkImageViewCreateInfo depthViewCI{
+	.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
+	.image = depthImage,
+	.viewType = VK_IMAGE_VIEW_TYPE_2D,
+	.format = depthFormat,
+	.subresourceRange{.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT, .levelCount = 1, .layerCount = 1 }
+	};
+	chk(vkCreateImageView(device, &depthViewCI, nullptr, &depthImageView));
+
+	// Mesh data
+	tinyobj::attrib_t attrib;
+	std::vector<tinyobj::shape_t> shapes;
+	std::vector<tinyobj::material_t> materials;
+	chk(tinyobj::LoadObj(&attrib, &shapes, &materials, nullptr, nullptr, "assets/suzanne.obj"));
 }
