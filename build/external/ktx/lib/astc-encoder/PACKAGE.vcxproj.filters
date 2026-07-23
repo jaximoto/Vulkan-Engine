@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jaxim\source\repos\NewVulkan\build\CMakeFiles\b6a7987f6ba2bd8e2d37218f258dac0b\PACKAGE_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{CB444D02-1C03-3607-91AC-CCFD0A5C4520}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

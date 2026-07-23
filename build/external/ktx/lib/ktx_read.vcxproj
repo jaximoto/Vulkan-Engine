@@ -1,0 +1,450 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FF2076A0-1339-39F9-B28C-BCA29DE9FCC7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ktx_read</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ktx_read.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ktx_read</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ktx_read.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ktx_read</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">ktx_read.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">ktx_read</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">ktx_read.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">ktx_read</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.341.1/include" /external:I "C:/Users/jaxim/source/repos/NewVulkan/external/ktx/lib/../other_include" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention>StdCall</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_DEBUG;DEBUG;LIBKTX;SUPPORT_SOFTWARE_ETC_UNPACK=1;KHRONOS_STATIC;BASISD_SUPPORT_FXT1=0;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;DEBUG;LIBKTX;SUPPORT_SOFTWARE_ETC_UNPACK=1;KHRONOS_STATIC;BASISD_SUPPORT_FXT1=0;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;C:\VulkanSDK\1.4.341.1\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\other_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;C:\VulkanSDK\1.4.341.1\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\other_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.341.1/include" /external:I "C:/Users/jaxim/source/repos/NewVulkan/external/ktx/lib/../other_include" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBKTX;SUPPORT_SOFTWARE_ETC_UNPACK=1;KHRONOS_STATIC;BASISD_SUPPORT_FXT1=0;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBKTX;SUPPORT_SOFTWARE_ETC_UNPACK=1;KHRONOS_STATIC;BASISD_SUPPORT_FXT1=0;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;C:\VulkanSDK\1.4.341.1\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\other_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;C:\VulkanSDK\1.4.341.1\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\other_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.341.1/include" /external:I "C:/Users/jaxim/source/repos/NewVulkan/external/ktx/lib/../other_include" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBKTX;SUPPORT_SOFTWARE_ETC_UNPACK=1;KHRONOS_STATIC;BASISD_SUPPORT_FXT1=0;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBKTX;SUPPORT_SOFTWARE_ETC_UNPACK=1;KHRONOS_STATIC;BASISD_SUPPORT_FXT1=0;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;C:\VulkanSDK\1.4.341.1\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\other_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;C:\VulkanSDK\1.4.341.1\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\other_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.341.1/include" /external:I "C:/Users/jaxim/source/repos/NewVulkan/external/ktx/lib/../other_include" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBKTX;SUPPORT_SOFTWARE_ETC_UNPACK=1;KHRONOS_STATIC;BASISD_SUPPORT_FXT1=0;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBKTX;SUPPORT_SOFTWARE_ETC_UNPACK=1;KHRONOS_STATIC;BASISD_SUPPORT_FXT1=0;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;C:\VulkanSDK\1.4.341.1\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\other_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jaxim\source\repos\NewVulkan\external\tinyobj;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\external;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\utils;C:\Users\jaxim\source\repos\NewVulkan\external\dfdutils;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\basis_universal\zstd;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\.;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\astc-encoder\Source;C:\VulkanSDK\1.4.341.1\include;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\..\other_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/jaxim/source/repos/NewVulkan/external/ktx/lib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jaxim/source/repos/NewVulkan -BC:/Users/jaxim/source/repos/NewVulkan/build --check-stamp-file C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/lib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePrintHelpers.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\WriteBasicConfigVersionFile.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\codesign.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\compiler_query_genexs.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\cputypetest.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\fp-settings.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/jaxim/source/repos/NewVulkan/external/ktx/lib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jaxim/source/repos/NewVulkan -BC:/Users/jaxim/source/repos/NewVulkan/build --check-stamp-file C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/lib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePrintHelpers.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\WriteBasicConfigVersionFile.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\codesign.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\compiler_query_genexs.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\cputypetest.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\fp-settings.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/jaxim/source/repos/NewVulkan/external/ktx/lib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jaxim/source/repos/NewVulkan -BC:/Users/jaxim/source/repos/NewVulkan/build --check-stamp-file C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/lib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePrintHelpers.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\WriteBasicConfigVersionFile.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\codesign.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\compiler_query_genexs.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\cputypetest.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\fp-settings.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/jaxim/source/repos/NewVulkan/external/ktx/lib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jaxim/source/repos/NewVulkan -BC:/Users/jaxim/source/repos/NewVulkan/build --check-stamp-file C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/lib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePrintHelpers.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\WriteBasicConfigVersionFile.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\codesign.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\compiler_query_genexs.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\cputypetest.cmake;C:\Users\jaxim\source\repos\NewVulkan\external\ktx\cmake\fp-settings.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include\ktx.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\astc_codec.cpp" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\basis_sgd.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\basis_transcode.cpp" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\miniz_wrapper.cpp" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\checkheader.c" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\etcunpack.cxx" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\filestream.c" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\filestream.h" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\formatsize.h" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\gl_format.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\glformat_str.c" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\hashlist.c" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\info.c" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\ktxint.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\memstream.c" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\memstream.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\strings.c" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\swap.c" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture.c" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture2.c" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture2.h" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture_funcs.inl" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\uthash.h" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vk2gl.h" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vk_format.h" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkFormat2glFormat.inl" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkFormat2glInternalFormat.inl" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkFormat2glType.inl" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkformat_check.c" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkformat_check_variant.c" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkformat_enum.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkformat_str.c" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkformat_typesize.c" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\KHR\khr_df.h" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\utils\unused.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\etcdec\etcdec.cxx" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\gl_funclist.inl" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\gl_funcs.c" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\gl_funcs.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\glloader.c" />
+    <None Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\def\internalexport.def" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture1.c" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture1.h" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include\ktxvulkan.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vk_funcs.c" />
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vk_funcs.h" />
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkloader.c" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_backend.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_basis_file.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_comp.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_enc.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_etc.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_frontend.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_gpu_texture.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_pvrtc1_4.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_resampler.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_resample_filters.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_ssim.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_uastc_enc.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_bc7enc.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\jpgd.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_kernels_sse.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_opencl.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\pvpngreader.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_uastc_hdr_4x4_enc.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_astc_hdr_6x6_enc.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_astc_hdr_common.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_astc_ldr_common.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_astc_ldr_encode.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\android_astc_decomp.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\tinyexr.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_transcoder.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\zstd.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\createdfd.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\colourspaces.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\interpretdfd.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\printdfd.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\queries.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\vk2dfd.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\dfd2vk.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_averages_and_directions.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_block_sizes.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_color_quantize.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_color_unquantize.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_compress_symbolic.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_compute_variance.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_decompress_symbolic.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_diagnostic_trace.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_entry.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_find_best_partitioning.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_ideal_endpoints_and_weights.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_image.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_integer_sequence.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_mathlib.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_mathlib_softfloat.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_partition_tables.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_percentile_tables.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_pick_best_endpoint_format.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_quantization.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_symbolic_physical.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_weight_align.obj" />
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_weight_quant_xfer_tables.obj" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\jaxim\source\repos\NewVulkan\build\ZERO_CHECK.vcxproj">
+      <Project>{CA2BC016-0F2E-31BA-AB37-B6169779828F}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.vcxproj">
+      <Project>{4364D757-020B-30BE-838F-A014CF338663}</Project>
+      <Name>astcenc-avx2-static</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.vcxproj">
+      <Project>{D4E6A11C-2FC1-3C7F-A1B5-19D325DA0628}</Project>
+      <Name>basisu_encoder</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.vcxproj">
+      <Project>{42E6AA01-68FF-3C3A-8454-5A0B3E5ED996}</Project>
+      <Name>dfdutils</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

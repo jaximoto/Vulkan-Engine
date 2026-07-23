@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\astc_codec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\basis_transcode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\miniz_wrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\checkheader.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\etcunpack.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\filestream.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\glformat_str.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\hashlist.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\info.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\memstream.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\strings.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\swap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkformat_check.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkformat_check_variant.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkformat_str.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkformat_typesize.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\etcdec\etcdec.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\gl_funcs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\glloader.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vk_funcs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkloader.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include\ktx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\basis_sgd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\filestream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\formatsize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\gl_format.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\ktxint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\memstream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture_funcs.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\uthash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vk2gl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vk_format.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkFormat2glFormat.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkFormat2glInternalFormat.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkFormat2glType.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vkformat_enum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\external\dfdutils\KHR\khr_df.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\utils\unused.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\gl_funclist.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\gl_funcs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\texture1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\include\ktxvulkan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\src\vk_funcs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\def\internalexport.def">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_backend.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_basis_file.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_comp.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_enc.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_etc.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_frontend.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_gpu_texture.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_pvrtc1_4.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_resampler.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_resample_filters.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_ssim.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_uastc_enc.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_bc7enc.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\jpgd.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_kernels_sse.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_opencl.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\pvpngreader.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_uastc_hdr_4x4_enc.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_astc_hdr_6x6_enc.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_astc_hdr_common.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_astc_ldr_common.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_astc_ldr_encode.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\android_astc_decomp.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\tinyexr.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\basisu_transcoder.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\basisu-encoder\basisu_encoder.dir\$(Configuration)\zstd.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\createdfd.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\colourspaces.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\interpretdfd.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\printdfd.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\queries.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\vk2dfd.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\dfdutils\dfdutils.dir\$(Configuration)\dfd2vk.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_averages_and_directions.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_block_sizes.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_color_quantize.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_color_unquantize.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_compress_symbolic.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_compute_variance.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_decompress_symbolic.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_diagnostic_trace.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_entry.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_find_best_partitioning.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_ideal_endpoints_and_weights.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_image.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_integer_sequence.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_mathlib.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_mathlib_softfloat.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_partition_tables.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_percentile_tables.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_pick_best_endpoint_format.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_quantization.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_symbolic_physical.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_weight_align.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\astc-encoder\Source\astcenc-avx2-static.dir\$(Configuration)\astcenc_weight_quant_xfer_tables.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{19E0A9A0-F13D-3759-ABFC-A8FEF6B1A800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object Libraries">
+      <UniqueIdentifier>{1C0ED90D-C0D2-3CB9-8B97-4E00A659EEBA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{C53132C8-8066-3D79-B330-1A8AEBF91C96}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

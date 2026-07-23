@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jaxim\source\repos\NewVulkan\build\CMakeFiles\feeb91cbd43cca28b6d00c82fc0ae498\version.h.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\jaxim\source\repos\NewVulkan\build\CMakeFiles\7fe3a093c024c956386d5af0527ffc28\ktx_version.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\jaxim\source\repos\NewVulkan\external\ktx\lib\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\jaxim\source\repos\NewVulkan\build\external\ktx\lib\CMakeFiles\ktx_version" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{CB444D02-1C03-3607-91AC-CCFD0A5C4520}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

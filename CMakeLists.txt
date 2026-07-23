@@ -25,8 +25,8 @@ endif()
 include_directories(SYSTEM $ENV{VULKAN_SDK}/include)
 # These are not part of the SDK
 include_directories(external/tinyobj)
-include_directories(external/ktx/include)
-include_directories(external/ktx/other_include)
+#include_directories(external/ktx/include)
+#include_directories(external/ktx/other_include)
 
 find_package (Vulkan REQUIRED)
 
@@ -40,22 +40,11 @@ if (NOT WIN32)
     FetchContent_MakeAvailable(GLM)
 endif()
 
-set(KTX_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/ktx)
-set(KTX_SOURCES
-    ${KTX_DIR}/lib/texture.c
-    ${KTX_DIR}/lib/hashlist.c
-    ${KTX_DIR}/lib/checkheader.c
-    ${KTX_DIR}/lib/swap.c
-    ${KTX_DIR}/lib/memstream.c
-    ${KTX_DIR}/lib/filestream.c
-    ${KTX_DIR}/lib/vkloader.c)
-add_library(ktx STATIC ${KTX_SOURCES})
-
-if (APPLE)
-    target_link_libraries(ktx PUBLIC $ENV{VULKAN_SDK}/lib/libvulkan.dylib)
-elseif (NOT WIN32)
-    target_link_libraries(ktx PUBLIC $ENV{VULKAN_SDK}/lib/libvulkan.so)
-endif()
+set(KTX_FEATURE_TESTS OFF CACHE BOOL "" FORCE)
+set(KTX_FEATURE_TOOLS OFF CACHE BOOL "" FORCE)
+set(KTX_FEATURE_STATIC_LIBRARY ON CACHE BOOL "" FORCE)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+add_subdirectory(external/ktx)
 
 find_library(SDL_LIBRARY NAMES SDL3 HINTS "$ENV{VULKAN_SDK}/lib" REQUIRED)
 find_library(Slang_LIBRARY NAMES slang slang-compiler HINTS "$ENV{VULKAN_SDK}/lib" REQUIRED)
@@ -72,6 +61,7 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/")
 
 add_executable(${NAME} main.cpp assets/shader.slang)
+target_compile_definitions(${NAME} PRIVATE KHRONOS_STATIC)
 target_compile_definitions(${NAME} PRIVATE VK_NO_PROTOTYPES)
 if (WIN32)
     target_compile_definitions(${NAME} PRIVATE _CRT_SECURE_NO_WARNINGS)

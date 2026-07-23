@@ -1,0 +1,12 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-4.2/Modules/BasicConfigVersion-SameMajorVersion.cmake.in
+C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDependentOption.cmake
+C:/Program Files/CMake/share/cmake-4.2/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-4.2/Modules/CMakePrintHelpers.cmake
+C:/Program Files/CMake/share/cmake-4.2/Modules/GNUInstallDirs.cmake
+C:/Program Files/CMake/share/cmake-4.2/Modules/WriteBasicConfigVersionFile.cmake
+C:/Users/jaxim/source/repos/NewVulkan/external/ktx/cmake/codesign.cmake
+C:/Users/jaxim/source/repos/NewVulkan/external/ktx/cmake/compiler_query_genexs.cmake
+C:/Users/jaxim/source/repos/NewVulkan/external/ktx/cmake/cputypetest.cmake
+C:/Users/jaxim/source/repos/NewVulkan/external/ktx/cmake/fp-settings.cmake
+C:/Users/jaxim/source/repos/NewVulkan/external/ktx/lib/CMakeLists.txt

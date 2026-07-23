@@ -1,0 +1,15 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/jaxim/source/repos/NewVulkan/build/cmake_install.cmake",
+		"C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/cmake_install.cmake",
+		"C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/lib/cmake_install.cmake",
+		"C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/lib/basisu-encoder/cmake_install.cmake",
+		"C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/lib/dfdutils/cmake_install.cmake",
+		"C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/lib/astc-encoder/cmake_install.cmake",
+		"C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/lib/astc-encoder/Source/cmake_install.cmake",
+		"C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/interface/basisu_c_binding/cmake_install.cmake",
+		"C:/Users/jaxim/source/repos/NewVulkan/build/external/ktx/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

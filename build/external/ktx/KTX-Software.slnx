@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Solution>
+	<Configurations>
+		<BuildType Name="Debug"/>
+		<BuildType Name="Release"/>
+		<BuildType Name="MinSizeRel"/>
+		<BuildType Name="RelWithDebInfo"/>
+		<Platform Name="x64"/>
+	</Configurations>
+	<Project Path="ALL_BUILD.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="09e5f461-2087-37ed-861f-5d679a1dd1ff" DefaultStartup="true">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="lib/astc-encoder/Source/astcenc-avx2-static.vcxproj"/>
+		<BuildDependency Project="lib/basisu-encoder/basisu_encoder.vcxproj"/>
+		<BuildDependency Project="lib/dfdutils/dfdutils.vcxproj"/>
+		<BuildDependency Project="lib/ktx.vcxproj"/>
+		<BuildDependency Project="lib/ktx_read.vcxproj"/>
+		<BuildDependency Project="objUtil.vcxproj"/>
+		<BuildDependency Project="interface/basisu_c_binding/obj_basisu_cbind.vcxproj"/>
+	</Project>
+	<Project Path="Continuous.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="8ba85681-fcf1-3594-9592-2bcfbb5c1e74">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+		<Build Solution="Debug|*" Project="false"/>
+		<Build Solution="Release|*" Project="false"/>
+		<Build Solution="MinSizeRel|*" Project="false"/>
+		<Build Solution="RelWithDebInfo|*" Project="false"/>
+	</Project>
+	<Project Path="Experimental.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="8eb3a8f9-e46c-312b-af66-c9b88aa24dce">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+		<Build Solution="Debug|*" Project="false"/>
+		<Build Solution="Release|*" Project="false"/>
+		<Build Solution="MinSizeRel|*" Project="false"/>
+		<Build Solution="RelWithDebInfo|*" Project="false"/>
+	</Project>
+	<Project Path="INSTALL.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="52f2cfbf-1886-38d7-9236-be48ab8ade55">
+		<BuildDependency Project="ALL_BUILD.vcxproj"/>
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+		<Build Solution="Debug|*" Project="false"/>
+		<Build Solution="Release|*" Project="false"/>
+		<Build Solution="MinSizeRel|*" Project="false"/>
+		<Build Solution="RelWithDebInfo|*" Project="false"/>
+	</Project>
+	<Project Path="Nightly.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="ac0fe3bd-1ad8-3408-9407-cea93f636802">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+		<Build Solution="Debug|*" Project="false"/>
+		<Build Solution="Release|*" Project="false"/>
+		<Build Solution="MinSizeRel|*" Project="false"/>
+		<Build Solution="RelWithDebInfo|*" Project="false"/>
+	</Project>
+	<Project Path="NightlyMemoryCheck.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="5db2ab4d-c089-3dde-89b2-37f580e57879">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+		<Build Solution="Debug|*" Project="false"/>
+		<Build Solution="Release|*" Project="false"/>
+		<Build Solution="MinSizeRel|*" Project="false"/>
+		<Build Solution="RelWithDebInfo|*" Project="false"/>
+	</Project>
+	<Project Path="PACKAGE.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="a9923681-5802-3668-8980-bc96761db445">
+		<BuildDependency Project="ALL_BUILD.vcxproj"/>
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+		<Build Solution="Debug|*" Project="false"/>
+		<Build Solution="Release|*" Project="false"/>
+		<Build Solution="MinSizeRel|*" Project="false"/>
+		<Build Solution="RelWithDebInfo|*" Project="false"/>
+	</Project>
+	<Project Path="../../ZERO_CHECK.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="ca2bc016-0f2e-31ba-ab37-b6169779828f"/>
+	<Project Path="lib/astc-encoder/Source/astcenc-avx2-static.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="4364d757-020b-30be-838f-a014cf338663">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+	</Project>
+	<Project Path="lib/basisu-encoder/basisu_encoder.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="d4e6a11c-2fc1-3c7f-a1b5-19d325da0628">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+	</Project>
+	<Project Path="lib/dfdutils/dfd2vk_inl.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="619d3ee2-8866-3625-a582-b2ab0534fb21">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+	</Project>
+	<Project Path="lib/dfdutils/dfdutils.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="42e6aa01-68ff-3c3a-8454-5a0b3e5ed996">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="lib/dfdutils/dfd2vk_inl.vcxproj"/>
+		<BuildDependency Project="lib/dfdutils/vk2dfd_inl.vcxproj"/>
+	</Project>
+	<Project Path="lib/ktx.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="fc54db5b-2940-35d7-9dc3-2326531c17f3">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="lib/astc-encoder/Source/astcenc-avx2-static.vcxproj"/>
+		<BuildDependency Project="lib/basisu-encoder/basisu_encoder.vcxproj"/>
+		<BuildDependency Project="lib/dfdutils/dfdutils.vcxproj"/>
+		<BuildDependency Project="lib/ktx_version.vcxproj"/>
+	</Project>
+	<Project Path="lib/ktx_read.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="ff2076a0-1339-39f9-b28c-bca29de9fcc7">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="lib/astc-encoder/Source/astcenc-avx2-static.vcxproj"/>
+		<BuildDependency Project="lib/basisu-encoder/basisu_encoder.vcxproj"/>
+		<BuildDependency Project="lib/dfdutils/dfdutils.vcxproj"/>
+	</Project>
+	<Project Path="lib/ktx_version.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="f4827a95-24ab-3cb2-9569-ff5da14df47b">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+	</Project>
+	<Project Path="objUtil.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="9dca89fe-d64f-35d5-9047-5409047c8e2d">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+	</Project>
+	<Project Path="interface/basisu_c_binding/obj_basisu_cbind.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="0352fea0-0373-3627-b0ab-738f2480776b">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+	</Project>
+	<Project Path="lib/dfdutils/vk2dfd_inl.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="8f7e57c3-4fde-36c9-83fe-aeede5f7aba0">
+		<BuildDependency Project="../../ZERO_CHECK.vcxproj"/>
+	</Project>
+</Solution>
