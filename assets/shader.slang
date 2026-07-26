@@ -1,8 +1,4 @@
-/* Copyright (c) 2025-2026, Sascha Willems
- *
- * SPDX-License-Identifier: MIT
- *
- */
+
 
 struct VSInput {
     float3 Pos;

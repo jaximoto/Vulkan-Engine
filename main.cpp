@@ -1,4 +1,5 @@
-﻿#define VOLK_IMPLEMENTATION
+﻿#define _CRTDBG_MAP_ALLOC
+#define VOLK_IMPLEMENTATION
 #include <vulkan/vulkan.h>
 #include <volk/volk.h>
 #include <SDL3/SDL.h>
@@ -23,6 +24,7 @@
 #define TINYOBJLOADER_DISABLE_FAST_FLOAT
 #include <tiny_obj_loader.h>
 #include <vulkan/vk_enum_string_helper.h>
+#include <crtdbg.h>
 
 // Globals:
 VkInstance instance{ VK_NULL_HANDLE };
@@ -43,13 +45,17 @@ VkCommandPool commandPool{ VK_NULL_HANDLE };
 
 // Containers
 glm::ivec2 windowSize{};
+glm::vec3 camPos{ 0.0f, 0.0f, -6.0f };
+glm::vec3 objectRotations[3]{};
 std::vector<VkImage> swapchainImages;
 std::vector<VkImageView> swapchainImageViews;
 constexpr uint32_t maxFramesInFlight{ 2 };
+uint32_t imageIndex{ 0 };
+uint32_t frameIndex{ 0 };
 std::array<VkCommandBuffer, maxFramesInFlight> commandBuffers;
 std::array<VkFence, maxFramesInFlight> fences;
-std::array<VkSemaphore, maxFramesInFlight> presentSemaphores;
-std::vector<VkSemaphore> renderSemaphores;
+std::array<VkSemaphore, maxFramesInFlight> imageAcquiredSemaphores;
+std::vector<VkSemaphore> renderCompleteSemaphores;
 
 // Structures:
 struct Vertex
@@ -128,6 +134,7 @@ static inline void chk(bool result)
 int main(int argc, char* argv[])
 {
 	
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	// Libraries check
 	chk(SDL_Init(SDL_INIT_VIDEO));
 	chk(SDL_Vulkan_LoadLibrary(NULL));
@@ -238,7 +245,7 @@ int main(int argc, char* argv[])
 	.pEnabledFeatures = &enabledVk10Features
 	};
 	chk(vkCreateDevice(devices[deviceIndex], &deviceCI, nullptr, &device));
-
+	volkLoadDevice(device);
 	// Get a queue to submit graphics commands to device:
 	vkGetDeviceQueue(device, queueFamily, 0, &queue);
 
@@ -445,10 +452,10 @@ int main(int argc, char* argv[])
 	{
 		chk(vkCreateFence(device, &fenceCI, nullptr, &fences[i]));
 		chk(vkCreateSemaphore(device, &semaphoreCI, nullptr,
-			&presentSemaphores[i]));
+			&imageAcquiredSemaphores[i]));
 	}
-	renderSemaphores.resize(swapchainImages.size());
-	for (auto& semaphore : renderSemaphores)
+	renderCompleteSemaphores.resize(swapchainImages.size());
+	for (auto& semaphore : renderCompleteSemaphores)
 	{
 		chk(vkCreateSemaphore(device, &semaphoreCI, nullptr, &semaphore));
 	}
@@ -602,7 +609,8 @@ int main(int argc, char* argv[])
 		};
 		chk(vkQueueSubmit(queue, 1, &oneTimeSI, fenceOneTime));
 		chk(vkWaitForFences(device, 1, &fenceOneTime, VK_TRUE, UINT64_MAX));
-
+		vkDestroyFence(device, fenceOneTime, nullptr);
+		vmaDestroyBuffer(allocator, imgSrcBuffer, imgSrcAllocation);
 		// Sampling params, anisotropic filter and max LOD
 		VkSamplerCreateInfo samplerCI{
 		.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO,
@@ -841,6 +849,335 @@ slangSession->loadModuleFromSource("triangle", "assets/shader.slang", nullptr, n
 	.layout = pipelineLayout
 	};
 	chk(vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipelineCI, nullptr, &pipeline));
+
+	// Render Loop
+	uint64_t lastTime{ SDL_GetTicks() };
+	bool quit{ false };
+	while (!quit)
+	{
+		// Wait on fence from last frame
+		// Waits on CPU until GPU has signaled done. Using large timeout and reset
+		chk(vkWaitForFences(device, 1, &fences[frameIndex], true, UINT64_MAX));
+		chk(vkResetFences(device, 1, &fences[frameIndex]));
+
+		// Acquire next swapchain image index for the frame
+		chkSwapchain(vkAcquireNextImageKHR(device, swapchain, UINT64_MAX,
+			imageAcquiredSemaphores[frameIndex], VK_NULL_HANDLE, &imageIndex));
+
+		// Update shader data using data buffers in both CPU and GPU space
+		shaderData.projection = glm::perspective(glm::radians(45.0f), (float)windowSize.x / (float)windowSize.y, 0.1f, 32.0f);
+		shaderData.view = glm::translate(glm::mat4(1.0f), camPos);
+		for (auto i = 0; i < 3; i++)
+		{
+			auto instancePos = glm::vec3((float)(i - 1) * 3.0f, 0.0f, 0.0f);
+			shaderData.model[i] = glm::translate(glm::mat4(1.0f), instancePos) * glm::mat4_cast(glm::quat(objectRotations[i]));
+		}
+		memcpy(shaderDataBuffers[frameIndex].allocationInfo.pMappedData, &shaderData, sizeof(ShaderData));
+		// Record command buffer
+		// First reset to initial state
+		auto cb = commandBuffers[frameIndex];
+		chk(vkResetCommandBuffer(cb, 0));
+		// Start recording:
+		VkCommandBufferBeginInfo cbBI {
+		.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
+			.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT
+		};
+		chk(vkBeginCommandBuffer(cb, &cbBI));
+
+		// Barriers for when to transition what when
+		std::array<VkImageMemoryBarrier2, 2> outputBarriers{
+			VkImageMemoryBarrier2{
+				.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER_2,
+				.srcStageMask = VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
+				.srcAccessMask = 0,
+				.dstStageMask = VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
+				.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT,
+				.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED,
+				.newLayout = VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL,
+				.image = swapchainImages[imageIndex],
+				.subresourceRange{.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT, .levelCount = 1, .layerCount = 1 }
+			},
+			VkImageMemoryBarrier2{
+				.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER_2,
+				.srcStageMask = VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT,
+				.srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT,
+				.dstStageMask = VK_PIPELINE_STAGE_2_EARLY_FRAGMENT_TESTS_BIT,
+				.dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT,
+				.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED,
+				.newLayout = VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL,
+				.image = depthImage,
+				.subresourceRange{.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT, .levelCount = 1, .layerCount = 1 }
+			}
+		};
+		VkDependencyInfo barrierDependencyInfo{
+			.sType = VK_STRUCTURE_TYPE_DEPENDENCY_INFO,
+			.imageMemoryBarrierCount = 2,
+			.pImageMemoryBarriers = outputBarriers.data()
+		};
+		// Insert 2 barriers into current command buffer
+		vkCmdPipelineBarrier2(cb, &barrierDependencyInfo);
+
+		// How we are using layouts for dynamic rendering:
+		VkRenderingAttachmentInfo colorAttachmentInfo{
+			.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO,
+			.imageView = swapchainImageViews[imageIndex],
+			.imageLayout = VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL,
+			.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR,
+			.storeOp = VK_ATTACHMENT_STORE_OP_STORE,
+			.clearValue{.color{ 0.0f, 0.0f, 0.2f, 1.0f }}
+		};
+		VkRenderingAttachmentInfo depthAttachmentInfo{
+			.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO,
+			.imageView = depthImageView,
+			.imageLayout = VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL,
+			.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR,
+			.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE,
+			.clearValue = {.depthStencil = {1.0f,  0}}
+		};
+
+		// Start dynamic render pass:
+		VkRenderingInfo renderingInfo{
+			.sType = VK_STRUCTURE_TYPE_RENDERING_INFO,
+			.renderArea{.extent{.width = static_cast<uint32_t>(windowSize.x), .height = static_cast<uint32_t>(windowSize.y) }},
+			.layerCount = 1,
+			.colorAttachmentCount = 1,
+			.pColorAttachments = &colorAttachmentInfo,
+			.pDepthAttachment = &depthAttachmentInfo
+		};
+		vkCmdBeginRendering(cb, &renderingInfo);
+
+		// setup viewport and scissor:
+		VkViewport vp{
+			.width = static_cast<float>(windowSize.x),
+			.height = static_cast<float>(windowSize.y),
+			.minDepth = 0.0f,
+			.maxDepth = 1.0f
+		};
+		vkCmdSetViewport(cb, 0, 1, &vp);
+		VkRect2D scissor{ .extent{.width = static_cast<uint32_t>(windowSize.x), .height = static_cast<uint32_t>(windowSize.y) } };
+		vkCmdSetScissor(cb, 0, 1, &scissor);
+
+		// Bind 3D rendering resources:
+		vkCmdBindPipeline(cb, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
+		VkDeviceSize vOffset{ 0 };
+		vkCmdBindDescriptorSets(cb, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, &descriptorSetTex, 0, nullptr);
+		vkCmdBindVertexBuffers(cb, 0, 1, &vBuffer, &vOffset);
+		vkCmdBindIndexBuffer(cb, vBuffer, vBufSize, VK_INDEX_TYPE_UINT16);
+
+		// Get data in shader data buffer:
+		vkCmdPushConstants(cb, pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, 
+			sizeof(VkDeviceAddress), &shaderDataBuffers[frameIndex].deviceAddress);
+		// Draw command:
+		vkCmdDrawIndexed(cb, indexCount, 3, 0, 0, 0);
+		vkCmdEndRendering(cb);
+
+		// Transition swapchain image that we used an attatchment
+		VkImageMemoryBarrier2 barrierPresent{
+			.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER_2,
+			.srcStageMask = VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
+			.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT,
+			.dstStageMask = VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
+			.dstAccessMask = 0,
+			.oldLayout = VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL,
+			.newLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+			.image = swapchainImages[imageIndex],
+			.subresourceRange{.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT, .levelCount = 1, .layerCount = 1 }
+		};
+		VkDependencyInfo barrierPresentDependencyInfo{
+			.sType = VK_STRUCTURE_TYPE_DEPENDENCY_INFO,
+			.imageMemoryBarrierCount = 1,
+			.pImageMemoryBarriers = &barrierPresent
+		};
+		vkCmdPipelineBarrier2(cb, &barrierPresentDependencyInfo);
+		vkEndCommandBuffer(cb);
+
+		// Submit command buffer
+		VkSemaphoreSubmitInfo waitSemaphoreInfo{
+			.sType = VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO,
+			.semaphore = imageAcquiredSemaphores[frameIndex],
+			.stageMask = VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
+		};
+		VkCommandBufferSubmitInfo commandBufferSubmitInfo{
+			.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_SUBMIT_INFO,
+			.commandBuffer = cb
+		};
+		VkSemaphoreSubmitInfo signalSemaphoreInfo{
+			.sType = VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO,
+			.semaphore = renderCompleteSemaphores[imageIndex],
+			.stageMask = VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
+		};
+		VkSubmitInfo2 submitInfo{
+			.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO_2,
+			.waitSemaphoreInfoCount = 1,
+			.pWaitSemaphoreInfos = &waitSemaphoreInfo,
+			.commandBufferInfoCount = 1,
+			.pCommandBufferInfos = &commandBufferSubmitInfo,
+			.signalSemaphoreInfoCount = 1,
+			.pSignalSemaphoreInfos = &signalSemaphoreInfo,
+		};
+		chk(vkQueueSubmit2(queue, 1, &submitInfo, fences[frameIndex]));
+
+		// calc frane index for next rendering loop:
+		frameIndex = (frameIndex + 1) % maxFramesInFlight;
+		// Present image
+		VkPresentInfoKHR presentInfo{
+			.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR,
+			.waitSemaphoreCount = 1,
+			.pWaitSemaphores = &renderCompleteSemaphores[imageIndex],
+			.swapchainCount = 1,
+			.pSwapchains = &swapchain,
+			.pImageIndices = &imageIndex
+		};
+		chkSwapchain(vkQueuePresentKHR(queue, &presentInfo));
+
+		// Poll events
+		float elapsedTime{ (SDL_GetTicks() - lastTime) / 1000.0f };
+		lastTime = SDL_GetTicks();
+		for (SDL_Event event; SDL_PollEvent(&event);)
+		{
+
+			// Exit loop if the application is about to close
+			if (event.type == SDL_EVENT_QUIT)
+			{
+				quit = true;
+				break;
+			}
+
+			// Rotate the selected object with mouse drag
+			if (event.type == SDL_EVENT_MOUSE_MOTION)
+			{
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					objectRotations[shaderData.selected].x -= (float)event.motion.yrel * elapsedTime;
+					objectRotations[shaderData.selected].y += (float)event.motion.xrel * elapsedTime;
+				}
+			}
+
+			// Zooming with the mouse wheel
+			if (event.type == SDL_EVENT_MOUSE_WHEEL)
+			{
+				camPos.z += (float)event.wheel.y * elapsedTime * 10.0f;
+			}
+
+			// Select active model instance
+			if (event.type == SDL_EVENT_KEY_DOWN)
+			{
+				if (event.key.key == SDLK_PLUS || event.key.key == SDLK_KP_PLUS)
+				{
+					shaderData.selected = (shaderData.selected < 2) ? shaderData.selected + 1 : 0;
+				}
+				if (event.key.key == SDLK_MINUS || event.key.key == SDLK_KP_MINUS)
+				{
+					shaderData.selected = (shaderData.selected > 0) ? shaderData.selected - 1 : 2;
+				}
+			}
+
+			// Window resize
+			if (event.type == SDL_EVENT_WINDOW_RESIZED)
+			{
+				updateSwapchain = true;
+			}
+
+			// Recreate swapChain
+			if (updateSwapchain)
+			{
+				updateSwapchain = false;
+				chk(vkDeviceWaitIdle(device));
+				chk(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(devices[deviceIndex], surface, &surfaceCaps));
+				swapchainCI.oldSwapchain = swapchain;
+				swapchainCI.imageExtent = { .width = static_cast<uint32_t>(windowSize.x), .height = static_cast<uint32_t>(windowSize.y) };
+				chk(vkCreateSwapchainKHR(device, &swapchainCI, nullptr, &swapchain));
+				for (auto i = 0; i < imageCount; i++)
+				{
+					vkDestroyImageView(device, swapchainImageViews[i], nullptr);
+				}
+				chk(vkGetSwapchainImagesKHR(device, swapchain, &imageCount, nullptr));
+				swapchainImages.resize(imageCount);
+				chk(vkGetSwapchainImagesKHR(device, swapchain, &imageCount, swapchainImages.data()));
+				swapchainImageViews.resize(imageCount);
+				for (auto i = 0; i < imageCount; i++)
+				{
+					VkImageViewCreateInfo viewCI{
+						.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
+						.image = swapchainImages[i],
+						.viewType = VK_IMAGE_VIEW_TYPE_2D,
+						.format = imageFormat,
+						.subresourceRange = {.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT, .levelCount = 1, .layerCount = 1}
+					};
+					chk(vkCreateImageView(device, &viewCI, nullptr, &swapchainImageViews[i]));
+				}
+				for (auto& semaphore : renderCompleteSemaphores)
+				{
+					vkDestroySemaphore(device, semaphore, nullptr);
+				}
+				renderCompleteSemaphores.resize(imageCount);
+				for (auto& semaphore : renderCompleteSemaphores)
+				{
+					chk(vkCreateSemaphore(device, &semaphoreCI, nullptr, &semaphore));
+				}
+				vkDestroySwapchainKHR(device, swapchainCI.oldSwapchain, nullptr);
+				vmaDestroyImage(allocator, depthImage, depthImageAllocation);
+				vkDestroyImageView(device, depthImageView, nullptr);
+				depthImageCI.extent = { .width = static_cast<uint32_t>(windowSize.x), .height = static_cast<uint32_t>(windowSize.y), .depth = 1 };
+				VmaAllocationCreateInfo allocCI{
+					.flags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
+					.usage = VMA_MEMORY_USAGE_AUTO
+				};
+				chk(vmaCreateImage(allocator, &depthImageCI, &allocCI, &depthImage, &depthImageAllocation, nullptr));
+				VkImageViewCreateInfo viewCI{
+					.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
+					.image = depthImage,
+					.viewType = VK_IMAGE_VIEW_TYPE_2D,
+					.format = depthFormat,
+					.subresourceRange = {.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT, .levelCount = 1, .layerCount = 1 }
+				};
+				chk(vkCreateImageView(device, &viewCI, nullptr, &depthImageView));
+			}
+		}
+		
+	}
+	// Clean up
+	chk(vkDeviceWaitIdle(device));
+	for (auto i = 0; i < maxFramesInFlight; i++)
+	{
+		vkDestroyFence(device, fences[i], nullptr);
+		vkDestroySemaphore(device, imageAcquiredSemaphores[i], nullptr);
+		vmaDestroyBuffer(allocator, shaderDataBuffers[i].buffer, shaderDataBuffers[i].allocation);
+	}
+	for (auto i = 0; i < renderCompleteSemaphores.size(); i++)
+	{
+		vkDestroySemaphore(device, renderCompleteSemaphores[i], nullptr);
+	}
+	vmaDestroyImage(allocator, depthImage, depthImageAllocation);
+	vkDestroyImageView(device, depthImageView, nullptr);
+	for (auto i = 0; i < swapchainImageViews.size(); i++)
+	{
+		vkDestroyImageView(device, swapchainImageViews[i], nullptr);
+	}
+	vmaDestroyBuffer(allocator, vBuffer, vBufferAllocation);
+	for (auto i = 0; i < textures.size(); i++)
+	{
+		vkDestroyImageView(device, textures[i].view, nullptr);
+		vkDestroySampler(device, textures[i].sampler, nullptr);
+		vmaDestroyImage(allocator, textures[i].image, textures[i].allocation);
+	}
+	vkDestroyDescriptorSetLayout(device, descriptorSetLayoutTex, nullptr);
+	vkDestroyDescriptorPool(device, descriptorPool, nullptr);
+	vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
+	vkDestroyPipeline(device, pipeline, nullptr);
+	vkDestroySwapchainKHR(device, swapchain, nullptr);
+	vkDestroySurfaceKHR(instance, surface, nullptr);
+	vkDestroyCommandPool(device, commandPool, nullptr);
+	vkDestroyShaderModule(device, shaderModule, nullptr);
+	vmaDestroyAllocator(allocator);
+
+	SDL_QuitSubSystem(SDL_INIT_VIDEO);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+	vkDestroyDevice(device, nullptr);
+	vkDestroyInstance(instance, nullptr);
+	volkFinalize();
+	_CrtDumpMemoryLeaks();
 	std::cout << "Main finished :)" << std::endl;
 }
 
