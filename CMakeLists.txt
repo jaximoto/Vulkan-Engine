@@ -60,7 +60,7 @@ if(MSVC)
 endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/")
 
-add_executable(${NAME} main.cpp assets/shader.slang)
+add_executable(${NAME} main.cpp assets/shader.slang "src/swapchain.cpp" "src/utils.cpp")
 target_compile_definitions(${NAME} PRIVATE KHRONOS_STATIC)
 target_compile_definitions(${NAME} PRIVATE VK_NO_PROTOTYPES)
 if (WIN32)
