@@ -8,6 +8,10 @@
 #include <vulkan/vk_enum_string_helper.h>
 #include <vector>
 #include <iostream>
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/glm.hpp>
+
 class Swapchain
 {
 public:
@@ -44,6 +48,7 @@ private:
 	VkSwapchainKHR swapchain_ = VK_NULL_HANDLE;
 	std::vector<VkImage> images_;
 	std::vector<VkImageView> imageViews_;
+	VkSurfaceCapabilitiesKHR surfaceCaps_{};
 	VkFormat imageFormat_;
 	VkExtent2D extent_;
 };

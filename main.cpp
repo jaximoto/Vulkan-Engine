@@ -551,7 +551,7 @@ int main(int argc, char* argv[])
 		surface, &surfaceCaps));
 
 	// Get swapchain extent
-	// For Wayland Enjoyers:
+	
 	VkExtent2D swapchainExtent{ surfaceCaps.currentExtent };
 	if (surfaceCaps.currentExtent.width == 0xFFFFFFFF)
 	{
