@@ -36,6 +36,10 @@ public:
 
 private:
 	void create();
+	void chooseExtent(VkExtent2D windowExtent);
+	void createCI();
+	bool isValid() const { return isValid_; }
+	void recreateRenderCompleteSemaphores();
 	void cleanup();
 
 	// Borrowed — owned elsewhere (Instance/Device/Window classes)
@@ -46,9 +50,17 @@ private:
 
 	// Owned
 	VkSwapchainKHR swapchain_ = VK_NULL_HANDLE;
+	VkSwapchainCreateInfoKHR swapchainCI_{};
 	std::vector<VkImage> images_;
 	std::vector<VkImageView> imageViews_;
+	std::vector<VkSemaphore> renderCompleteSemaphores_;
+	uint32_t imageCount_ = { 0 };
 	VkSurfaceCapabilitiesKHR surfaceCaps_{};
 	VkFormat imageFormat_;
 	VkExtent2D extent_;
+	VkSemaphoreCreateInfo semaphoreCI{
+		.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO
+	};
+	bool isValid_ = false;
+	bool needsRecreation_ = false;
 };
