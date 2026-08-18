@@ -2,6 +2,7 @@
 #include <vulkan/vulkan.h>
 #include <iostream>
 #include <vulkan/vk_enum_string_helper.h>
+#include "swapchain.hpp"
 // Check Functions:
 static inline void chk(VkResult result)
 {
@@ -13,13 +14,14 @@ static inline void chk(VkResult result)
 }
 
 
-static inline void chkSwapchain(VkResult result, bool* updateSwapchain)
+// THIS WILL LIKELY CHANGE
+static inline void chkSwapchain(VkResult result, Swapchain swapchain)
 {
 	if (result < VK_SUCCESS)
 	{
 		if (result == VK_ERROR_OUT_OF_DATE_KHR)
 		{
-			*updateSwapchain = true;
+			swapchain.needsRecreation_ = true;
 			return;
 		}
 		std::cerr << "Vulkan call returned an error (" << string_VkResult(result) << ")\n";

@@ -7,6 +7,7 @@ Swapchain::Swapchain(VkDevice device, VkPhysicalDevice physicalDevice,
 {
     imageFormat_ = { VK_FORMAT_B8G8R8A8_SRGB };
     create();
+    createImageAcquiredSemaphores();
 }
 
 Swapchain::~Swapchain()
@@ -14,63 +15,56 @@ Swapchain::~Swapchain()
     cleanup();
 }
 
-Swapchain::Swapchain(Swapchain&& other) noexcept
-    : physicalDevice_(other.physicalDevice_), device_(other.device_),
-    surface_(other.surface_), window_(other.window_),
-    swapchain_(other.swapchain_), images_(std::move(other.images_)),
-    imageViews_(std::move(other.imageViews_)),
-    imageFormat_(other.imageFormat_), extent_(other.extent_)
-{
-    other.swapchain_ = VK_NULL_HANDLE; // prevent double-destroy
-}
 
-Swapchain& Swapchain::operator=(Swapchain&& other) noexcept
+
+void Swapchain::getImageIndex(uint32_t frameIndex)
 {
-    if (this != &other)
+        // Acquire next image from swapchain
+    VkResult result = vkAcquireNextImageKHR(device_, swapchain_, UINT64_MAX,
+        imageAcquiredSemaphores_[frameIndex], VK_NULL_HANDLE, &imageIndex_);
+    if (result == VK_ERROR_OUT_OF_DATE_KHR)
     {
-        cleanup();
-        physicalDevice_ = other.physicalDevice_;
-        device_ = other.device_;
-        surface_ = other.surface_;
-        window_ = other.window_;
-        swapchain_ = other.swapchain_;
-        images_ = std::move(other.images_);
-        imageViews_ = std::move(other.imageViews_);
-        imageFormat_ = other.imageFormat_;
-        extent_ = other.extent_;
-        other.swapchain_ = VK_NULL_HANDLE;
+        needsRecreation_ = true;
+        return;
     }
-    return *this;
+    else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
+    {
+        throw std::runtime_error("Failed to acquire swapchain image!");
+	}
 }
 
-void Swapchain::recreate()
+bool Swapchain::queryWindow()
 {
-    glm::ivec2 windowSize;
-    chk(SDL_GetWindowSize(window_, &windowSize.x, &windowSize.y));
-    if (windowSize.x == 0 || windowSize.y == 0)
+    chk(SDL_GetWindowSize(window_, &windowSize_.x, &windowSize_.y));
+    if (windowSize_.x == 0 || windowSize_.y == 0)
     {
         isValid_ = false;
-        return; // don't touch Vulkan, don't clear updateSwapchain — try again next frame
+        return false; // don't touch Vulkan, don't clear updateSwapchain — try again next frame
     }
+    return true;
+}
+void Swapchain::recreate()
+{
+    
+    if (!queryWindow())
+    {
+        return; // don't touch Vulkan, don't clear updateSwapchain — try again next frame
+	}
 
 	needsRecreation_ = false;
 	chk(vkDeviceWaitIdle(device_));
     create();
-    // Destroy old swapchain after makiong new one
+
 	vkDestroySwapchainKHR(device_, swapchainCI_.oldSwapchain, nullptr);
 }
+
 void Swapchain::create()
 {
-    // 1. query surface capabilities/formats/present modes
-	glm::ivec2 windowSize;
-    chk(SDL_GetWindowSize(window_, &windowSize.x, &windowSize.y));
-
-    if (windowSize.x == 0 || windowSize.y == 0)
+    if (!queryWindow())
     {
-        isValid_ = false;
-        return; // don't touch Vulkan at all — nothing to create yet
+        return; // don't touch Vulkan, don't clear updateSwapchain — try again next frame
     }
-	VkExtent2D windowExtent{ static_cast<uint32_t>(windowSize.x), static_cast<uint32_t>(windowSize.y) };
+	VkExtent2D windowExtent{ static_cast<uint32_t>(windowSize_.x), static_cast<uint32_t>(windowSize_.y) };
 	chooseExtent(windowExtent);
 	createCI();
     // 3. vkCreateSwapchainKHR
@@ -105,13 +99,21 @@ void Swapchain::create()
         };
         chk(vkCreateImageView(device_, &viewCI, nullptr, &imageViews_[i]));
 	}
+	
 	recreateRenderCompleteSemaphores();
+    
     isValid_ = true;
     
 
     
 }
 
+void Swapchain::resizeWindowEvent(SDL_Event event)
+{
+	windowSize_.x = event.window.data1;
+	windowSize_.y = event.window.data2;
+	needsRecreation_ = true;
+}
 /*
     * Since window manages the surface, it will tell me what sizes of images that the platform
     * can accept.That is why we can't use window size directly.
@@ -137,6 +139,8 @@ void Swapchain::chooseExtent(VkExtent2D windowExtent)
     // Clamps if I want later
 }
 
+
+
 void Swapchain::createCI()
 {
     swapchainCI_ = VkSwapchainCreateInfoKHR{
@@ -156,6 +160,14 @@ void Swapchain::createCI()
 	
 }
 
+void Swapchain::createImageAcquiredSemaphores()
+{
+    for (auto i = 0; i < maxFramesInFlight_; i++)
+    {
+        chk(vkCreateSemaphore(device_, &semaphoreCI, nullptr,
+            &imageAcquiredSemaphores_[i]));
+    }
+}
 void Swapchain::recreateRenderCompleteSemaphores()
 {
     // first destroy any remaining render complete semaphores:
@@ -169,5 +181,37 @@ void Swapchain::recreateRenderCompleteSemaphores()
     {
         chk(vkCreateSemaphore(device_, &semaphoreCI, nullptr, &semaphore));
 	}
+}
+void Swapchain::cleanup()
+{
+    if (device_ == VK_NULL_HANDLE) return;
+	chk(vkDeviceWaitIdle(device_));
+    for (auto& view : imageViews_)
+    {
+        if (view != VK_NULL_HANDLE)
+        {
+            vkDestroyImageView(device_, view, nullptr);
+        }
+    }
+    imageViews_.clear();
+    for (auto& semaphore : renderCompleteSemaphores_)
+    {
+        if (semaphore != VK_NULL_HANDLE)
+        {
+            vkDestroySemaphore(device_, semaphore, nullptr);
+        }
+    }
+    renderCompleteSemaphores_.clear();
+    for (auto i = 0; i < maxFramesInFlight_; i++)
+    {
+        
+        vkDestroySemaphore(device_, imageAcquiredSemaphores_[i], nullptr);
+        
+    }
+    if (swapchain_ != VK_NULL_HANDLE)
+    {
+        vkDestroySwapchainKHR(device_, swapchain_, nullptr);
+        swapchain_ = VK_NULL_HANDLE;
+    }
 }
 

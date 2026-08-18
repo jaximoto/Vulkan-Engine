@@ -25,6 +25,8 @@
 #include <tiny_obj_loader.h>
 #include <vulkan/vk_enum_string_helper.h>
 #include <crtdbg.h>
+#include "src/swapchain.hpp"
+#include "src/utils.cpp"
 
 // Globals:
 VkInstance instance{ VK_NULL_HANDLE };
@@ -32,8 +34,8 @@ VkDevice device{ VK_NULL_HANDLE };
 VkQueue queue{ VK_NULL_HANDLE };
 VmaAllocator allocator{ VK_NULL_HANDLE };
 VkSurfaceKHR surface{ VK_NULL_HANDLE };
-VkSwapchainKHR swapchain{ VK_NULL_HANDLE };
-bool updateSwapchain{ false };
+
+
 VkPipeline pipeline{ VK_NULL_HANDLE };
 VkPipelineLayout pipelineLayout{ VK_NULL_HANDLE };
 VkImage depthImage;
@@ -50,9 +52,9 @@ VkSwapchainCreateInfoKHR swapchainCI{};
 VkSemaphoreCreateInfo semaphoreCI{
 		.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO
 };
-uint32_t imageCount{ 0 };
-VkFormat depthFormat{ VK_FORMAT_UNDEFINED };
 
+VkFormat depthFormat{ VK_FORMAT_UNDEFINED };
+uint32_t frameIndex{ 0 };
 VkDeviceSize vBufSize{};
 VkDeviceSize indexCount{};
 
@@ -60,16 +62,15 @@ VkDeviceSize indexCount{};
 glm::ivec2 windowSize{};
 glm::vec3 camPos{ 0.0f, 0.0f, -6.0f };
 glm::vec3 objectRotations[3]{};
-std::vector<VkImage> swapchainImages;
-std::vector<VkImageView> swapchainImageViews;
+
 constexpr uint32_t maxFramesInFlight{ 2 };
-uint32_t imageIndex{ 0 };
-uint32_t frameIndex{ 0 };
+
 std::array<VkCommandBuffer, maxFramesInFlight> commandBuffers;
 std::array<VkFence, maxFramesInFlight> fences;
-std::array<VkSemaphore, maxFramesInFlight> imageAcquiredSemaphores;
-std::vector<VkSemaphore> renderCompleteSemaphores;
+
+
 std::vector<VkPhysicalDevice> devices;
+Swapchain swapchain;
 
 // Structures:
 struct Vertex
@@ -111,98 +112,9 @@ VkDescriptorSet descriptorSetTex{ VK_NULL_HANDLE };
 
 Slang::ComPtr<slang::IGlobalSession> slangGlobalSession;
 
-// Check Functions:
-static inline void chk(VkResult result)
-{
-	if (result != VK_SUCCESS)
-	{
-		std::cerr << "Vulkan call returned an error (" << string_VkResult(result) << ")\n";
-		exit(result);
-	}
-}
 
-
-static inline void chkSwapchain(VkResult result)
-{
-	if (result < VK_SUCCESS)
-	{
-		if (result == VK_ERROR_OUT_OF_DATE_KHR)
-		{
-			updateSwapchain = true;
-			return;
-		}
-		std::cerr << "Vulkan call returned an error (" << string_VkResult(result) << ")\n";
-		exit(result);
-	}
-}
-static inline void chk(bool result)
-{
-	if (!result)
-	{
-		std::cerr << "Call returned an error\n";
-		exit(result);
-	}
-}
 void renderFrame();
-void recreateSwapchain()
-{
-	// do your swapchain/depth image recreation here
-			// (the same code currently inside your main loop's updateSwapchain block)
-			// Recreate swapChain
 
-
-	updateSwapchain = false;
-	chk(vkDeviceWaitIdle(device));
-	chk(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(devices[deviceIndex], surface, &surfaceCaps));
-	swapchainCI.oldSwapchain = swapchain;
-	swapchainCI.imageExtent = { .width = static_cast<uint32_t>(windowSize.x), .height = static_cast<uint32_t>(windowSize.y) };
-	chk(vkCreateSwapchainKHR(device, &swapchainCI, nullptr, &swapchain));
-	for (auto i = 0; i < imageCount; i++)
-	{
-		vkDestroyImageView(device, swapchainImageViews[i], nullptr);
-	}
-	chk(vkGetSwapchainImagesKHR(device, swapchain, &imageCount, nullptr));
-	swapchainImages.resize(imageCount);
-	chk(vkGetSwapchainImagesKHR(device, swapchain, &imageCount, swapchainImages.data()));
-	swapchainImageViews.resize(imageCount);
-	for (auto i = 0; i < imageCount; i++)
-	{
-		VkImageViewCreateInfo viewCI{
-			.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
-			.image = swapchainImages[i],
-			.viewType = VK_IMAGE_VIEW_TYPE_2D,
-			.format = imageFormat,
-			.subresourceRange = {.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT, .levelCount = 1, .layerCount = 1}
-		};
-		chk(vkCreateImageView(device, &viewCI, nullptr, &swapchainImageViews[i]));
-	}
-	for (auto& semaphore : renderCompleteSemaphores)
-	{
-		vkDestroySemaphore(device, semaphore, nullptr);
-	}
-	renderCompleteSemaphores.resize(imageCount);
-	for (auto& semaphore : renderCompleteSemaphores)
-	{
-		chk(vkCreateSemaphore(device, &semaphoreCI, nullptr, &semaphore));
-	}
-	vkDestroySwapchainKHR(device, swapchainCI.oldSwapchain, nullptr);
-	vmaDestroyImage(allocator, depthImage, depthImageAllocation);
-	vkDestroyImageView(device, depthImageView, nullptr);
-	depthImageCI.extent = { .width = static_cast<uint32_t>(windowSize.x), .height = static_cast<uint32_t>(windowSize.y), .depth = 1 };
-	VmaAllocationCreateInfo allocCI{
-		.flags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
-		.usage = VMA_MEMORY_USAGE_AUTO
-	};
-	chk(vmaCreateImage(allocator, &depthImageCI, &allocCI, &depthImage, &depthImageAllocation, nullptr));
-	VkImageViewCreateInfo viewCI{
-		.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
-		.image = depthImage,
-		.viewType = VK_IMAGE_VIEW_TYPE_2D,
-		.format = depthFormat,
-		.subresourceRange = {.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT, .levelCount = 1, .layerCount = 1 }
-	};
-	chk(vkCreateImageView(device, &viewCI, nullptr, &depthImageView));
-}
 // Event watcher callback — SDL calls this synchronously as it pumps
 // events, including during the modal resize loop on Windows
 static bool SDLCALL resizingEventWatcher(void* userdata, SDL_Event* event)
@@ -211,21 +123,25 @@ static bool SDLCALL resizingEventWatcher(void* userdata, SDL_Event* event)
 	{
 		windowSize.x = event->window.data1;
 		windowSize.y = event->window.data2;
-		updateSwapchain = true;
+		swapchain.needsRecreation_ = true;
 	}
 	// SDL_EVENT_WINDOW_EXPOSED also fires repeatedly during the drag
 	// on some platforms — good signal to redraw too
 	if (event->type == SDL_EVENT_WINDOW_RESIZED ||
 		event->type == SDL_EVENT_WINDOW_EXPOSED)
 	{
-		if (updateSwapchain)
+		if (swapchain.needsRecreation_ && windowSize.x > 0 && windowSize.y > 0)
 		{
-			recreateSwapchain();
+			swapchain.recreate();
+			swapchain.needsRecreation_ = false; // clear the flag after handling it
 		}
-		
-		
-		renderFrame();
+
+		if (windowSize.x > 0 && windowSize.y > 0)
+		{
+			renderFrame();
+		}
 	}
+	
 	return true;
 }
 
@@ -233,12 +149,11 @@ void renderFrame()
 {
 	// Wait on fence from last frame
 		// Waits on CPU until GPU has signaled done. Using large timeout and reset
-	chk(vkWaitForFences(device, 1, &fences[frameIndex], true, UINT64_MAX));
+	chk(vkWaitForFences(device, 1, &fences[swapchain.frameIndex_], true, UINT64_MAX));
 	chk(vkResetFences(device, 1, &fences[frameIndex]));
 
 	// Acquire next swapchain image index for the frame
-	chkSwapchain(vkAcquireNextImageKHR(device, swapchain, UINT64_MAX,
-		imageAcquiredSemaphores[frameIndex], VK_NULL_HANDLE, &imageIndex));
+	swapchain.getImageIndex(frameIndex);
 
 	// Update shader data using data buffers in both CPU and GPU space
 	shaderData.projection = glm::perspective(glm::radians(45.0f), (float)windowSize.x / (float)windowSize.y, 0.1f, 32.0f);
@@ -270,7 +185,7 @@ void renderFrame()
 			.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT,
 			.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED,
 			.newLayout = VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL,
-			.image = swapchainImages[imageIndex],
+			.image = swapchain.images()[swapchain.imageIndex_],
 			.subresourceRange{.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT, .levelCount = 1, .layerCount = 1 }
 		},
 		VkImageMemoryBarrier2{
@@ -296,7 +211,7 @@ void renderFrame()
 	// How we are using layouts for dynamic rendering:
 	VkRenderingAttachmentInfo colorAttachmentInfo{
 		.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO,
-		.imageView = swapchainImageViews[imageIndex],
+		.imageView = swapchain.imageViews()[swapchain.imageIndex_],
 		.imageLayout = VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL,
 		.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR,
 		.storeOp = VK_ATTACHMENT_STORE_OP_STORE,
@@ -356,7 +271,7 @@ void renderFrame()
 		.dstAccessMask = 0,
 		.oldLayout = VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL,
 		.newLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
-		.image = swapchainImages[imageIndex],
+		.image = swapchain.images()[swapchain.imageIndex_],
 		.subresourceRange{.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT, .levelCount = 1, .layerCount = 1 }
 	};
 	VkDependencyInfo barrierPresentDependencyInfo{
@@ -370,7 +285,7 @@ void renderFrame()
 	// Submit command buffer
 	VkSemaphoreSubmitInfo waitSemaphoreInfo{
 		.sType = VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO,
-		.semaphore = imageAcquiredSemaphores[frameIndex],
+		.semaphore = swapchain.imageAcquiredSemaphores_[frameIndex],
 		.stageMask = VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
 	};
 	VkCommandBufferSubmitInfo commandBufferSubmitInfo{
@@ -379,7 +294,7 @@ void renderFrame()
 	};
 	VkSemaphoreSubmitInfo signalSemaphoreInfo{
 		.sType = VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO,
-		.semaphore = renderCompleteSemaphores[imageIndex],
+		.semaphore = swapchain.renderCompleteSemaphores_[swapchain.imageIndex_],
 		.stageMask = VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
 	};
 	VkSubmitInfo2 submitInfo{
@@ -399,12 +314,12 @@ void renderFrame()
 	VkPresentInfoKHR presentInfo{
 		.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR,
 		.waitSemaphoreCount = 1,
-		.pWaitSemaphores = &renderCompleteSemaphores[imageIndex],
+		.pWaitSemaphores = &swapchain.renderCompleteSemaphores_[swapchain.imageIndex_],
 		.swapchainCount = 1,
-		.pSwapchains = &swapchain,
-		.pImageIndices = &imageIndex
+		.pSwapchains = &swapchain.swapchain_,
+		.pImageIndices = &swapchain.imageIndex_
 	};
-	chkSwapchain(vkQueuePresentKHR(queue, &presentInfo));
+	chkSwapchain(vkQueuePresentKHR(queue, &presentInfo), swapchain);
 }
 int main(int argc, char* argv[])
 {
@@ -544,52 +459,13 @@ int main(int argc, char* argv[])
 		SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
 	assert(window);
 	chk(SDL_Vulkan_CreateSurface(window, instance, nullptr, &surface));
-	chk(SDL_GetWindowSize(window, &windowSize.x, &windowSize.y));
-	// Get Surface Properties
 	
-	chk(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(devices[deviceIndex],
-		surface, &surfaceCaps));
+	// Make Swapchain object to manage swapchain images and views
+	Swapchain swapchain(device, devices[deviceIndex], surface, window);
+	
 
-	// Get swapchain extent
 	
-	VkExtent2D swapchainExtent{ surfaceCaps.currentExtent };
-	if (surfaceCaps.currentExtent.width == 0xFFFFFFFF)
-	{
-		swapchainExtent = { .width = static_cast<uint32_t>(windowSize.x), .height = static_cast<uint32_t>(windowSize.y) };
-	}
-
-	// Okay get swapchain with right extent:
 	
-	swapchainCI = VkSwapchainCreateInfoKHR{
-		.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR,
-		.surface = surface,
-		.minImageCount = surfaceCaps.minImageCount,
-		.imageFormat = imageFormat,
-		.imageColorSpace = VK_COLORSPACE_SRGB_NONLINEAR_KHR,
-		.imageExtent{.width = swapchainExtent.width, .height = swapchainExtent.height },
-		.imageArrayLayers = 1,
-		.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
-		.preTransform = VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR,
-		.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
-		.presentMode = VK_PRESENT_MODE_FIFO_KHR
-	};
-	chk(vkCreateSwapchainKHR(device, &swapchainCI, nullptr, &swapchain));
-	std::cout << "Made swapchain " << std::endl;
-	// Get as many images from swapchain as we can:
-	
-	chk(vkGetSwapchainImagesKHR(device, swapchain, &imageCount, nullptr));
-	swapchainImages.resize(imageCount);
-	chk(vkGetSwapchainImagesKHR(device, swapchain, &imageCount, swapchainImages.data()));
-	swapchainImageViews.resize(imageCount);
-	for (auto i = 0; i < imageCount; i++)
-	{
-		VkImageViewCreateInfo viewCI{ .sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO, 
-			.image = swapchainImages[i], .viewType = VK_IMAGE_VIEW_TYPE_2D, .format = imageFormat,
-			.subresourceRange{.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
-			.levelCount = 1, .layerCount = 1 } };
-		chk(vkCreateImageView(device, &viewCI, nullptr, &swapchainImageViews[i]));
-	}
-	std::cout << "Made swapchain images " << std::endl;
 
 	// Get depth attatchment format on device
 	std::vector<VkFormat> depthFormatList{ VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT };
@@ -724,14 +600,8 @@ int main(int argc, char* argv[])
 	for (auto i = 0; i < maxFramesInFlight; i++)
 	{
 		chk(vkCreateFence(device, &fenceCI, nullptr, &fences[i]));
-		chk(vkCreateSemaphore(device, &semaphoreCI, nullptr,
-			&imageAcquiredSemaphores[i]));
 	}
-	renderCompleteSemaphores.resize(swapchainImages.size());
-	for (auto& semaphore : renderCompleteSemaphores)
-	{
-		chk(vkCreateSemaphore(device, &semaphoreCI, nullptr, &semaphore));
-	}
+	
 
 	// Make command pool
 	VkCommandPoolCreateInfo commandPoolCI{
@@ -1179,15 +1049,14 @@ slangSession->loadModuleFromSource("triangle", "assets/shader.slang", nullptr, n
 			// but this catches the case where SDL_PollEvent delivers it normally)
 			if (event.type == SDL_EVENT_WINDOW_RESIZED)
 			{
-				windowSize.x = event.window.data1;
-				windowSize.y = event.window.data2;
-				updateSwapchain = true;
+				swapchain.resizeWindowEvent(event);
+				
 			}
 
 			// Recreate swapChain
-			if (updateSwapchain)
+			if (swapchain.needsRecreation_)
 			{
-				recreateSwapchain();
+				swapchain.recreate();
 			}
 		}
 		
@@ -1200,16 +1069,10 @@ slangSession->loadModuleFromSource("triangle", "assets/shader.slang", nullptr, n
 		vkDestroySemaphore(device, imageAcquiredSemaphores[i], nullptr);
 		vmaDestroyBuffer(allocator, shaderDataBuffers[i].buffer, shaderDataBuffers[i].allocation);
 	}
-	for (auto i = 0; i < renderCompleteSemaphores.size(); i++)
-	{
-		vkDestroySemaphore(device, renderCompleteSemaphores[i], nullptr);
-	}
+	
 	vmaDestroyImage(allocator, depthImage, depthImageAllocation);
 	vkDestroyImageView(device, depthImageView, nullptr);
-	for (auto i = 0; i < swapchainImageViews.size(); i++)
-	{
-		vkDestroyImageView(device, swapchainImageViews[i], nullptr);
-	}
+	
 	vmaDestroyBuffer(allocator, vBuffer, vBufferAllocation);
 	for (auto i = 0; i < textures.size(); i++)
 	{
@@ -1221,7 +1084,7 @@ slangSession->loadModuleFromSource("triangle", "assets/shader.slang", nullptr, n
 	vkDestroyDescriptorPool(device, descriptorPool, nullptr);
 	vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
 	vkDestroyPipeline(device, pipeline, nullptr);
-	vkDestroySwapchainKHR(device, swapchain, nullptr);
+	swapchain.cleanup();
 	vkDestroySurfaceKHR(instance, surface, nullptr);
 	vkDestroyCommandPool(device, commandPool, nullptr);
 	vkDestroyShaderModule(device, shaderModule, nullptr);
